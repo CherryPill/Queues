@@ -17,7 +17,7 @@ void _SYS_MainMenu(node **queueArr, int qNum)
 			static int invkCount = 0;
 			if (invkCount)
 			{
-				std::cout << "There's been a problem with your input\n";
+				std::cout << GL_ERR_INPUT_PROB;
 				//clearScreen();
 			}
 			std::cout << "Your choice: ";
@@ -31,30 +31,40 @@ void _SYS_MainMenu(node **queueArr, int qNum)
 			invkCount++;
 		}
 		choice = atoi(inputBuff);
+		clearScreen();
 		switch (choice)
 		{
-		case 1:
-			showQueues(queueArr, qNum);
-			break;
-		case 2:
+		
+			case 1:
+			{
+				showQueues(queueArr, qNum);
+				break;
+			}
+			case 2:
+			{
+				clearScreen();
+				_SYS_QueueMenu(queueArr, qNum, _SYS_chooseQueue(qNum));
+				break;
+			}
+			case 3:
+			{
+				if (_SYS_chkQuit())
+				{
+					exitIntent = true;
+					  }
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+		if (!exitIntent)
 		{
+			std::cout << GL_MSG_CONT;
+			std::cin.get();
 			clearScreen();
-			_SYS_QueueMenu(queueArr, qNum, _SYS_chooseQueue(qNum));
-			break;
 		}
-		case 3:
-		{
-				  if (_SYS_chkQuit())
-				  {
-					  exitIntent = true;
-				  }
-			break;
-		}
-		default:
-			break;
-		}
-		std::cin.get();
-		clearScreen();
 	}
 }
 void _SYS_QueueMenu(node **queueArr, int qNum, int qID)
@@ -82,7 +92,7 @@ void _SYS_QueueMenu(node **queueArr, int qNum, int qID)
 			static int invkCount = 0;
 			if (invkCount)
 			{
-				std::cout << "There's been a problem with your input\n";
+				std::cout << GL_ERR_INPUT_PROB;
 				//clearScreen();
 			}
 			std::cout << "Your choice: ";
@@ -130,7 +140,7 @@ int _SYS_chooseQueue(int qNum)
 	std::cout << "Choose a queue to process:";
 	std::cin >> choice;
 	std::cin.get();
-	assert(choice <= qNum&&choice > 0);
+	assert(choice <= qNum && choice > 0);
 	choice--;
 	clearScreen();
 	return choice;

@@ -1,6 +1,7 @@
 #include "stdincld.h"
 void displayMainMenu(void)
 {
+	system("cls");
 	std::cout << std::endl<< "Main menu" << std::endl;
 	std::cout << "1 - Show all queues\n";
 	std::cout << "2 - Choose a queue to process\n";
